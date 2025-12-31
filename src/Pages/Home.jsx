@@ -8,7 +8,7 @@ const Home = () => {
     <div>
         <div className='fresherstempimg'>
         <div className=''>
-          <img src="https://uploads.onecompiler.io/448vxda58/448vxc7dp/1000084969.jpg" alt="Freshers Party 2025" />
+          <img src="https://i.pinimg.com/originals/33/3e/8e/333e8e16268cbf2fb1b46ebdcaeccd90.jpg" alt="Freshers Party 2025" />
         </div>
         </div>
         <Votebtn />
