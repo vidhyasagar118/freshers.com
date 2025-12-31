@@ -1,6 +1,5 @@
 import React from 'react'
-import './Profecer.css'
-
+import "./Profecer.css"
 const Profecerscard = () => {
   const profecerdata = [
     { name: "Vikas Parik", role: "HOD & Professor", imgsrc: "https://iitb.irins.org/profile_images/52006_Arti_D_Kalro.jpg" },
