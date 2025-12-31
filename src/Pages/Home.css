@@ -2,7 +2,7 @@
     width: 100vw;
     height: 95vh;
     margin-top: 10vh;
-    background-image: url("frashersimg.jpeg");
+    background-image: url("/frashersimg.jpeg");
     background-size: contain;
     background-repeat: no-repeat;
     background-color: black;
