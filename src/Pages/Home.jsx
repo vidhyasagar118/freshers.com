@@ -1,7 +1,7 @@
 import React from 'react'
 import Votebtn from './Votebtn'
 import "./Home.css"
-import Profecerscard from './Profecesr.jsx/Profecerscard'
+import Profecerscard from './Profecesr/Profecerscard'
 import Footer from './Footer'
 const Home = () => {
   return (
