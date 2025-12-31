@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import "./mainnav.css";
+import "./Mainnav.css";
 import { useNavigate } from 'react-router-dom';
 const Mainnavbar = ({ isVisible, onClose }) => {
   const navigate = useNavigate();
