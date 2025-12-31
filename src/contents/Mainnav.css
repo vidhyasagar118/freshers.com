@@ -1,0 +1,43 @@
+.mainnav {
+  margin-top: 12vh;
+  width: 30vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-100%);
+  opacity: 0;
+  background-color:lightblue;
+  color: white;
+  display:flex;
+  flex-direction:column;
+align-items: center;
+}
+.mainnavbox{
+  display: flex;
+flex-direction: column;  margin-top: 100px;
+}
+.mainnav button{
+  margin: 2rem;
+  padding: 0.5rem;
+padding-left: 1rem;
+padding-right: 1rem;
+border: none;
+border-radius: 30px;
+}
+.mainnav.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mainnav.hide {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.closemainnavbarbtn{
+  background-color: black;
+  color: white;
+}

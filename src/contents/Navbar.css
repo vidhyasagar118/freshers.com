@@ -1,0 +1,94 @@
+.navbar {
+  width: 100%;
+  height: 12vh;
+  background-color:blue;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar ul {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.showbtn img {
+  cursor: pointer;
+  filter: invert(1);
+}
+
+.logomgcub {
+  height: 45px;
+  object-fit: contain;
+}
+
+.loginbtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #00d4ff;
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+margin-left: -10vw;
+}
+
+.loginbtn:hover {
+  background-color: #00a8cc;
+}
+
+/* Icon inside button */
+.icon-box i {
+  font-size: 18px;
+}
+
+/* ========== Responsive ========== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .navbar {
+    height: 10vh;
+  }
+
+  .loginbtn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .logomgcub {
+    height: 40px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .loginbtn span {
+    display: none; /* hide icon text if needed */
+  }
+
+  .loginbtn {
+    padding: 6px 12px;
+    margin-left: -50%;
+    font-size: 12px;
+  }
+
+  .logomgcub {
+    height: 35px;
+  }
+}

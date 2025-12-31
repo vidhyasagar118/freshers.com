@@ -1,0 +1,41 @@
+.Votesectionmaindiv {
+  padding: 20px;
+  margin-top: 12vh;
+}
+
+.Votesectiondiv {
+  display: grid;
+  gap: 20px;
+  border: 5px solid lightblue;
+  border-radius: 10px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.studentCard {   
+  border: 1px solid #ccc;
+  padding: 15px;
+  border:greenyellow 2px solid ;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.studentCard img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .Votesectiondiv {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .Votesectiondiv {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

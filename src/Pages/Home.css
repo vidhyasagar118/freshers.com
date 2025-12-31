@@ -1,0 +1,18 @@
+.fresherstempimg{
+    width: 100vw;
+    height: 95vh;
+    margin-top: 10vh;
+    background-image: url("frashersimg.jpeg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: center;
+}
+
+
+.fresherstempimg img{
+object-fit: contain;
+width: 100vw;
+z-index: -1;
+height: 80vh;
+}

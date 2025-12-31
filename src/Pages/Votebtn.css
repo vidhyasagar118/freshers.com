@@ -1,0 +1,22 @@
+.homevotesection{
+    background-color: black;
+    margin: 1rem;
+}
+.votebtnh1{
+    margin: 3rem;
+    text-align: center;
+    color: chocolate;
+}
+
+.Votepageshow {
+  color:black;
+  padding: 5px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 10px;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+}
