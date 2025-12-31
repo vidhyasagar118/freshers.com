@@ -13,6 +13,5 @@
 .fresherstempimg img{
 object-fit: contain;
 width: 100vw;
-z-index: -1;
 height: 80vh;
 }
