@@ -8,7 +8,7 @@ const Home = () => {
     <div>
         <div className='fresherstempimg'>
         <div className=''>
-
+          <img src="/frashersimg.jpeg" alt="Freshers Party 2025" />
         </div>
         </div>
         <Votebtn />
