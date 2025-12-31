@@ -12,6 +12,7 @@ import Login from './Login/Login'
 import Signup from './Login/Signup'
 import Navbar from './contents/Navbar.jsx'
 import Contact from './Pages/Contact.jsx'
+import Home from './pages/Home'
 import About from './Pages/About.jsx'
 import Votesectiondiv from './Pages/Votesection/Votesectiondiv.jsx'
 const App = () => { 
