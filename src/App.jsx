@@ -13,7 +13,7 @@ import Signup from './Login/Signup'
 import Navbar from './contents/Navbar.jsx'
 import Contact from './Pages/Contact.jsx'
 import About from './Pages/About.jsx'
-import Votesectiondiv from './pages/Votesection/Votesectiondiv.jsx'
+import Votesectiondiv from './Pages/Votesection/Votesectiondiv.jsx'
 const App = () => { 
   const router = createBrowserRouter(
     createRoutesFromElements(
