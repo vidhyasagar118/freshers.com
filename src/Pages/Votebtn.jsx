@@ -9,7 +9,7 @@ const Votebtn = () => {
     <div className='homevotesection'>
       <h1 className='votebtnh1'>VOTE SECTION</h1>
  <span className='btn'>
-        <button  className='Votepageshow'  onClick={() => navigate('/Votesectiondiv')}>  Vote</button>
+        <button  className='Votepageshow'  onClick={() => navigate('/Votesectiondiv')}> GO TO VOTE</button>
         </span>
         <div>
                     <Mostexpectedvote />

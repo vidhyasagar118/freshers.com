@@ -1,21 +1,33 @@
-import React from 'react'
-import "./Mostexpectedvote.css"
+import React, { useEffect, useState } from "react";
+import "./Mostexpectedvote.css";
 
 const Mostexpectedvote = () => {
-  return (
-    <div className='Mostexpectedvotemaindiv'>
-        <h1> for most probility or most voted student data</h1>
-    <div className='Mostexpectedvotediv'>
-      {[1,2,3,4,5,6,7,8].map((item, index) => (
-        <div className='Mostexpectedvote' key={index}>
-          <p>img</p>
-          <p>Name</p>
-          <p>Total Votes</p>
-        </div>
-      ))}
-    </div>
-    </div>
-  )
-}
+  const [topStudents, setTopStudents] = useState([]);
 
-export default Mostexpectedvote
+  const loadTopStudents = async () => {
+    const res = await fetch("http://localhost:5000/students/top");
+    const data = await res.json();
+    setTopStudents(data);
+  };
+
+  useEffect(() => {
+    loadTopStudents();
+  }, []);
+
+  return (
+    <div className="Mostexpectedvotemaindiv">
+      <h1>Top 5 Most Voted Students</h1>
+      <div className="Mostexpectedvotediv">
+        {topStudents.map((s) => (
+          <div className="Mostexpectedvote" key={s._id}>
+            <img src={s.Imgsrc} alt={s.name} width="50px" />
+            <p>Name: {s.name}</p>
+            <p>Total Votes: {s.votes}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Mostexpectedvote;

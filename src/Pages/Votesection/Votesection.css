@@ -1,41 +1,98 @@
+/* Main container */
 .Votesectionmaindiv {
   padding: 20px;
-  margin-top: 12vh;
+  margin-top: 10vh;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Grid of students */
 .Votesectiondiv {
   display: grid;
-  gap: 20px;
-  border: 5px solid lightblue;
-  border-radius: 10px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
 }
 
-.studentCard {   
-  border: 1px solid #ccc;
-  padding: 15px;
-  border:greenyellow 2px solid ;
+/* Individual student card */
+.studentCard {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  border-radius: 15px;
+  padding: 20px;
   text-align: center;
-  border-radius: 8px;
-  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.studentCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+/* Student image */
 .studentCard img {
-  width: 100%;
-  max-width: 120px;
-  height: auto;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 4px solid transparent;
+  background: linear-gradient(135deg, #ff6ec4, #7873f5);
+  padding: 4px;
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
-  .Votesectiondiv {
-    grid-template-columns: repeat(3, 1fr);
+/* Name and votes */
+.studentCard h3 {
+  margin: 10px 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.studentCard .votes {
+  color: #00ffab;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Vote button */
+.voteBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(270deg, #ff6ec4, #7873f5, #00c6ff);
+  background-size: 600% 600%;
+  animation: gradientAnimation 4s ease infinite;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.voteBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Gradient animation */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .studentCard img {
+    width: 100px;
+    height: 100px;
   }
-}
-
-@media (min-width: 1200px) {
-  .Votesectiondiv {
-    grid-template-columns: repeat(5, 1fr);
+  .voteBtn {
+    padding: 8px 15px;
   }
 }

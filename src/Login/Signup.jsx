@@ -37,31 +37,12 @@ const Signup = () => {
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
-        <input
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          placeholder="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Sign Up</button>
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
+        <p>Already have an account? <Link to="/login">Login</Link></p>
       </form>
     </div>
   );

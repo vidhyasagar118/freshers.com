@@ -1,6 +1,7 @@
 .homevotesection{
-    background-color: black;
+    background-color:yellow;
     margin: 1rem;
+    padding-bottom: 20px;
 }
 .votebtnh1{
     margin: 3rem;
@@ -19,4 +20,68 @@
 .btn{
     display: flex;
     justify-content: center;
+}
+.Votepageshow {
+  padding: 20px 60px;              /* bigger padding */
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  border: 3px solid #00f0ff;       /* stylish border */
+  border-radius: 25px;              /* more rounded */
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect with glow */
+.Votepageshow:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(0, 198, 255, 0.7), 0 0 15px rgba(0, 198, 255, 0.5);
+  border-color: #00f0ff;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 198, 255, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Optional: moving gradient border effect */
+.Votepageshow::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(60deg, #00c6ff, #0072ff, #00c6ff, #00f0ff);
+  background-size: 400% 400%;
+  animation: borderMove 4s linear infinite;
+  border-radius: 25px;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+@keyframes borderMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 400% 0%; }
+}
+
+.Votepageshow span {
+  position: relative;
+  z-index: 1; /* keep text above moving border */
 }

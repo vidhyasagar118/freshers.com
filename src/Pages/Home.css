@@ -1,17 +1,44 @@
-.fresherstempimg{
-    width: 100vw;
-    height: 95vh;
+.fresherstempimg {
+    width: 100%;
+    height: auto; /* let height adjust automatically */
     margin-top: 10vh;
-/* background-image: url("/frashersimg.jpeg"); */
-    background-size: contain;
-    background-repeat: no-repeat;
     background-color: black;
-    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px; /* some padding on small screens */
+    margin-top: 12vh;
 }
 
+.fresherstempimg img {
+    width: 100vw;
+    max-width: 1200px; /* prevent it from being too wide on big screens */
+    height: auto;      /* maintain aspect ratio */
+    object-fit: contain;
+    border-radius: 8px; /* optional: make edges rounded */
+}
 
-.fresherstempimg img{
-object-fit: contain;
-width: 100vw;
-height: 80vh;
+@media (max-width: 768px) {
+    .fresherstempimg {
+        margin-top: 5vh;
+        height: 80vh;
+        padding: 0 5px;
+    }
+
+    .fresherstempimg img {
+        width: 100vw;
+        height: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .fresherstempimg {
+        margin-top: 10vh;
+        height: 70vh;
+    }
+
+    .fresherstempimg img {
+        width: 100%;
+        height: auto;
+    }
 }
