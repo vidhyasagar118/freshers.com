@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./Votesection.css";
+import { API_URL } from "../config";
 
 const Votesectiondiv = () => {
   const [students, setStudents] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
 
-  // get user from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
 
   const loadStudents = async () => {
-    const res = await fetch("http://localhost:5000/students");
-    setStudents(await res.json());
+    try {
+      const res = await fetch(`${API_URL}/students`);
+      setStudents(await res.json());
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const checkVote = async () => {
-    if (!user?.email) return; // no user, no vote check
-    const res = await fetch(`http://localhost:5000/vote/status/${user.email}`);
-    const data = await res.json();
-    setHasVoted(data.hasVoted);
+    if (!user?.email) return;
+    try {
+      const res = await fetch(`${API_URL}/vote/status/${user.email}`);
+      const data = await res.json();
+      setHasVoted(data.hasVoted);
+    } catch {}
   };
 
   useEffect(() => {
@@ -26,23 +32,24 @@ const Votesectiondiv = () => {
   }, []);
 
   const vote = async (enrollmentnum) => {
-    if (!user?.email) {
-      alert("Please login to vote!");
-      return;
+    if (!user?.email) return alert("Please login to vote!");
+
+    try {
+      const res = await fetch(`${API_URL}/vote`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email, enrollmentnum }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) return alert(data.message);
+
+      alert("Vote Successful");
+      setHasVoted(true);
+      loadStudents();
+    } catch (err) {
+      alert("Vote failed");
     }
-
-    const res = await fetch("http://localhost:5000/vote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: user.email, enrollmentnum }),
-    });
-
-    const data = await res.json();
-    if (!res.ok) return alert(data.message);
-
-    alert("Vote Successful");
-    setHasVoted(true); // disables all buttons
-    loadStudents();
   };
 
   return (
@@ -56,7 +63,6 @@ const Votesectiondiv = () => {
             <p className="votes">Votes: {s.votes}</p>
             <button
               className="voteBtn"
-              // disabled if user not logged in OR has already voted
               disabled={!user || hasVoted}
               onClick={() => vote(s.enrollmentnum)}
             >

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Profecer.css";
+import { API_URL } from "../config";
 
 const Profecerscard = () => {
   const [profecerdata, setProfecerdata] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/profecers")
+    fetch(`${API_URL}/profecers`)
       .then(res => res.json())
       .then(data => setProfecerdata(data))
       .catch(err => console.log(err));
@@ -14,7 +15,6 @@ const Profecerscard = () => {
   return (
     <div className="Profecerscardmaindiv">
       <h1>PROFESSORS DETAILS</h1>
-
       <div className="Profecersdiv">
         {profecerdata.map((profecer, index) => (
           <div className="profCard" key={index}>

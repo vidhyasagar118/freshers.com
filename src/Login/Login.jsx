@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { API_URL } from "../config"; // import backend URL
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [user, setUser] = useState(null); // store logged-in user
+  const [user, setUser] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // check if already logged in
     const userData = localStorage.getItem("user");
     if (userData) setUser(JSON.parse(userData));
   }, []);
@@ -18,23 +18,27 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("email", data.email);
-      localStorage.setItem("user", JSON.stringify(data)); // save full user info
-      setUser(data);
-      alert("Login successful");
-      navigate("/"); // optional redirect
-    } else {
-      setError(data.message);
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data);
+        alert("Login successful");
+        navigate("/"); 
+      } else {
+        setError(data.message);
+      }
+    } catch {
+      setError("Login failed. Please try again later.");
     }
   };
 
@@ -64,7 +68,6 @@ const Login = () => {
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
-
         <input
           type="email"
           placeholder="Email"
@@ -72,7 +75,6 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-
         <input
           type="password"
           placeholder="Password"
@@ -80,14 +82,9 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-
         {error && <p style={{ color: "red" }}>{error}</p>}
-
         <button type="submit">Login</button>
-
-        <p>
-          New user? <Link to="/signup">Signup</Link>
-        </p>
+        <p>New user? <Link to="/signup">Signup</Link></p>
       </form>
     </div>
   );
