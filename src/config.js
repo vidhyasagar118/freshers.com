@@ -1,1 +1,2 @@
-import { API_URL } from "./config";
+// src/config.js
+export const API_URL = "https://fresher-backend-wmeo.onrender.com";
