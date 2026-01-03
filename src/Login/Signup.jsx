@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import { API_URL } from "../config"; // import backend URL
+import { API_URL } from "../config";  // go up ONE level to src/
 
 const Signup = () => {
   const [name, setName] = useState("");

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profecer.css";
-import { API_URL } from "../config";
+import { API_URL } from "../../config"; // Corrected path
 
 const Profecerscard = () => {
   const [profecerdata, setProfecerdata] = useState([]);

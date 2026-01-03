@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Votesection.css";
-import { API_URL } from "../config";
+import { API_URL } from "../../config"; // Corrected path
 
 const Votesectiondiv = () => {
   const [students, setStudents] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
-
   const user = JSON.parse(localStorage.getItem("user"));
 
   const loadStudents = async () => {
@@ -33,7 +32,6 @@ const Votesectiondiv = () => {
 
   const vote = async (enrollmentnum) => {
     if (!user?.email) return alert("Please login to vote!");
-
     try {
       const res = await fetch(`${API_URL}/vote`, {
         method: "POST",
@@ -61,11 +59,7 @@ const Votesectiondiv = () => {
             <h3>{s.name}</h3>
             <p>Enrollment: {s.enrollmentnum}</p>
             <p className="votes">Votes: {s.votes}</p>
-            <button
-              className="voteBtn"
-              disabled={!user || hasVoted}
-              onClick={() => vote(s.enrollmentnum)}
-            >
+            <button className="voteBtn" disabled={!user || hasVoted} onClick={() => vote(s.enrollmentnum)}>
               {!user ? "Login to Vote" : hasVoted ? "Voted" : "Vote"}
             </button>
           </div>

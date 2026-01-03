@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import { API_URL } from "../config"; // import backend URL
+import { API_URL } from "../config";  // go up ONE level to src/
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
@@ -33,7 +32,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
         setUser(data);
         alert("Login successful");
-        navigate("/"); 
+        navigate("/");
       } else {
         setError(data.message);
       }
@@ -68,20 +67,8 @@ const Login = () => {
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Login</button>
         <p>New user? <Link to="/signup">Signup</Link></p>
