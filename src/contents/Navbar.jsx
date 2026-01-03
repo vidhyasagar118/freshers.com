@@ -41,7 +41,6 @@ const Navbar = () => {
                   alt={user.name}
                   className="userlogo"
                 />
-                <span>{user.name}</span>
               </div>
             ) : (
               <button
