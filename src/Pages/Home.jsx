@@ -8,7 +8,7 @@ const Home = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/home/image")
+    fetch("https://fresher-backend-wmeo.onrender.com/home/image")
       .then((res) => res.json())
       .then((data) => setImageUrl(data.imageUrl))
       .catch((err) => console.log("Failed to fetch image:", err));
