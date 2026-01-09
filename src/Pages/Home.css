@@ -13,7 +13,7 @@
 .fresherstempimg img {
     width: 100vw;
     max-width: 1200px; /* prevent it from being too wide on big screens */
-    height: auto;      /* maintain aspect ratio */
+    height: 85vh;      /* maintain aspect ratio */
     object-fit: contain;
     border-radius: 8px; /* optional: make edges rounded */
 }

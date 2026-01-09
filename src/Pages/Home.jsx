@@ -3,21 +3,15 @@ import Votebtn from "./Votebtn";
 import Profecerscard from "./Profecesr/Profecerscard";
 import Footer from "./Footer";
 import "./Home.css";
+import Freshersimg from "../assets/Homeimg.jpeg";
 
 const Home = () => {
-  const [imageUrl, setImageUrl] = useState("");
-
-  useEffect(() => {
-    fetch("https://fresher-backend-wmeo.onrender.com/home/image")
-      .then((res) => res.json())
-      .then((data) => setImageUrl(data.imageUrl))
-      .catch((err) => console.log("Failed to fetch image:", err));
-  }, []);
+  
 
   return (
     <div>
       <div className="fresherstempimg">
-        {imageUrl ? <img src={imageUrl} alt="Freshers Party" /> : <p>Loading image...</p>}
+                <img src={Freshersimg} alt="freshers banner" />
       </div>
       <Votebtn />
       <Profecerscard />
