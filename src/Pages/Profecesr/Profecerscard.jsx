@@ -2,16 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./Profecer.css";
 import { API_URL } from "../../config";
 
+import subhamImg from "../../assets/subham.jpeg";
+import sunilImg from "../../assets/sunil.jpeg";
+import vikashImg from "../../assets/vikash.jpeg";
+import vipinImg from "../../assets/vipin.jpeg";
+const imageMap = {
+  "Vikash Parik": vikashImg,
+  "Sunil Kumar": sunilImg,
+  "Shubham Kumar": subhamImg,
+  "vipin kumar": vipinImg,
+};
+
+
 const Profecerscard = () => {
   const [profecerdata, setProfecerdata] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const localImages = [
-        "/vikash.jpeg",
-            "/sunil.jpeg",
-    "/subam.jpeg",
-    "/vipin.jpeg",
-  ];
 
   useEffect(() => {
     const fetchProfecers = async () => {
@@ -37,17 +42,16 @@ const Profecerscard = () => {
         {loading ? (
           <h2>Loading...</h2>
         ) : (
-          profecerdata.map((profecer, index) => (
-            <div className="profCard" key={profecer._id}>
+          profecerdata.map((prof) => (
+            <div className="profCard" key={prof._id}>
               <div className="profImgWrapper">
                 <img
-                  src={localImages[index] || profecer.imgsrc}
-                  alt={profecer.name}
-                  loading="lazy"
+                  src={imageMap[prof.name] || subhamImg}
+                  alt={prof.name}
                 />
               </div>
-              <h3 className="profName">{profecer.name}</h3>
-              <p className="profRole">{profecer.role}</p>
+              <h3 className="profName">{prof.name}</h3>
+              <p className="profRole">{prof.role}</p>
             </div>
           ))
         )}
