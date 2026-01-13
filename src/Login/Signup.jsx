@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../config";
 import "./Login.css";
+import { API_URL } from "../config";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -12,15 +12,10 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // ✅ Send OTP
+  // 1️⃣ Send OTP
   const sendOtp = async () => {
-    console.log("Send OTP clicked"); // debug
     setError("");
-    if (!email) {
-      alert("Enter email first");
-      return;
-    }
-
+    if (!email) return setError("Please enter email first");
     try {
       const res = await fetch(`${API_URL}/api/auth/send-otp`, {
         method: "POST",
@@ -29,26 +24,23 @@ const Signup = () => {
       });
 
       const data = await res.json();
-
       if (res.ok) {
         setOtpSent(true);
-        alert("✅ OTP sent to your email!");
+        alert("OTP sent to your email");
       } else {
-        alert("❌ " + (data.message || "Failed to send OTP"));
+        setError(data.message || "Failed to send OTP");
       }
     } catch (err) {
-      alert("❌ Server error while sending OTP");
+      setError("Failed to send OTP");
     }
   };
 
-  // ✅ Signup
+  // 2️⃣ Signup with OTP
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!name || !email || !password || !otp) {
-      return alert("Please fill all fields!");
-    }
+    if (!otpSent) return setError("Please send OTP first");
 
     try {
       const res = await fetch(`${API_URL}/api/auth/signup`, {
@@ -60,13 +52,13 @@ const Signup = () => {
       const data = await res.json();
 
       if (res.status === 201) {
-        alert("✅ Signup successful");
+        alert("Signup successful! Please login.");
         navigate("/login");
       } else {
-        alert("❌ " + (data.message || "Signup failed"));
+        setError(data.message);
       }
     } catch (err) {
-      alert("❌ Signup failed due to server error");
+      setError("Signup failed. Please try again later.");
     }
   };
 
@@ -99,12 +91,11 @@ const Signup = () => {
         {otpSent && (
           <>
             <input
-              placeholder="OTP"
+              placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               required
             />
-
             <input
               placeholder="Password"
               type="password"
@@ -112,13 +103,11 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
             <button type="submit">Sign Up</button>
           </>
         )}
 
         {error && <p style={{ color: "red" }}>{error}</p>}
-
         <p>
           Already have an account? <Link to="/login">Login</Link>
         </p>
