@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css";
 import { API_URL } from "../config";
+import "./Login.css";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -14,8 +14,12 @@ const Signup = () => {
 
   // ✅ Send OTP
   const sendOtp = async () => {
+    console.log("Send OTP clicked"); // debug
     setError("");
-    if (!email) return setError("Enter email first");
+    if (!email) {
+      alert("Enter email first");
+      return;
+    }
 
     try {
       const res = await fetch(`${API_URL}/api/auth/send-otp`, {
@@ -28,12 +32,12 @@ const Signup = () => {
 
       if (res.ok) {
         setOtpSent(true);
-        alert("OTP sent to your email");
+        alert("✅ OTP sent to your email!");
       } else {
-        setError(data.message);
+        alert("❌ " + (data.message || "Failed to send OTP"));
       }
     } catch (err) {
-      setError("Server error");
+      alert("❌ Server error while sending OTP");
     }
   };
 
@@ -41,6 +45,10 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (!name || !email || !password || !otp) {
+      return alert("Please fill all fields!");
+    }
 
     try {
       const res = await fetch(`${API_URL}/api/auth/signup`, {
@@ -52,13 +60,13 @@ const Signup = () => {
       const data = await res.json();
 
       if (res.status === 201) {
-        alert("Signup successful");
+        alert("✅ Signup successful");
         navigate("/login");
       } else {
-        setError(data.message);
+        alert("❌ " + (data.message || "Signup failed"));
       }
     } catch (err) {
-      setError("Signup failed");
+      alert("❌ Signup failed due to server error");
     }
   };
 
@@ -112,7 +120,7 @@ const Signup = () => {
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <p>
-          Already have account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </form>
     </div>
