@@ -45,7 +45,8 @@ const Login = () => {
     return (
       <div className="auth-container">
         <div className="user-info-card">
-          <img src={user.Imgsrc} alt={user.name} />
+          <img src={`${API_URL}${user.Imgsrc}`} alt={user.name} />
+
           <h2>{user.name}</h2>
           <p>Enrollment: {user.enrollmentnum || "N/A"}</p>
           <p>Email: {user.email}</p>

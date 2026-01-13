@@ -7,9 +7,9 @@ import sunilImg from "../../assets/sunil.jpeg";
 import vikashImg from "../../assets/vikash.jpeg";
 import vipinImg from "../../assets/vipin.jpeg";
 const imageMap = {
-  "Vikash Parik": vikashImg,
-  "Sunil Kumar": sunilImg,
-  "Shubham Kumar": subhamImg,
+  "vikash parik": vikashImg,
+  "sunil kumar": sunilImg,
+  "shubham kumar": subhamImg,
   "vipin kumar": vipinImg,
 };
 
@@ -45,10 +45,11 @@ const Profecerscard = () => {
           profecerdata.map((prof) => (
             <div className="profCard" key={prof._id}>
               <div className="profImgWrapper">
-                <img
-                  src={imageMap[prof.name] || subhamImg}
-                  alt={prof.name}
-                />
+<img
+  src={imageMap[prof.name.toLowerCase()] || subhamImg}
+  alt={prof.name}
+/>
+
               </div>
               <h3 className="profName">{prof.name}</h3>
               <p className="profRole">{prof.role}</p>

@@ -55,7 +55,7 @@ const Votesectiondiv = () => {
       <div className="Votesectiondiv">
         {students.map((s) => (
           <div className="studentCard" key={s._id}>
-            <img src={s.Imgsrc} alt={s.name} />
+<img src={`${API_URL}${s.Imgsrc}`} alt={s.name} />
             <h3>{s.name}</h3>
             <p>Enrollment: {s.enrollmentnum}</p>
             <p className="votes">Votes: {s.votes}</p>
