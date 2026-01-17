@@ -44,7 +44,7 @@ const Navbar = () => {
           </li>
           <li>
             {user ? (
-              <div className="userlogin" onClick={() => navigate("/signup")}>
+              <div className="userlogin" onClick={() => navigate("/")}>
                 <img
                   src="https://as1.ftcdn.net/v2/jpg/02/01/33/54/1000_F_201335438_CNpY0iWaXXAV95Gj8BPB0tEJlMcxWeaZ.jpg" width="40px"
                   alt={user.name}
@@ -54,7 +54,7 @@ const Navbar = () => {
             ) : (
               <button
                 className="loginbtn"
-                onClick={() => navigate("/singup", { replace: true })}
+                onClick={() => navigate("/login", { replace: true })}
               >
                 Login
               </button>
