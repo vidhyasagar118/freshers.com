@@ -9,9 +9,18 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) setUser(JSON.parse(userData));
-  }, []);
+  const userData = localStorage.getItem("user");
+
+  if (userData && userData !== "undefined") {
+    try {
+      setUser(JSON.parse(userData));
+    } catch (err) {
+      console.log("Invalid user in localStorage", err);
+      localStorage.removeItem("user");
+      setUser(null);
+    }
+  }
+}, []);
 
   return (
     <>
@@ -35,7 +44,7 @@ const Navbar = () => {
           </li>
           <li>
             {user ? (
-              <div className="userlogin" onClick={() => navigate("/login")}>
+              <div className="userlogin" onClick={() => navigate("/signup")}>
                 <img
                   src="https://as1.ftcdn.net/v2/jpg/02/01/33/54/1000_F_201335438_CNpY0iWaXXAV95Gj8BPB0tEJlMcxWeaZ.jpg" width="40px"
                   alt={user.name}
@@ -45,7 +54,7 @@ const Navbar = () => {
             ) : (
               <button
                 className="loginbtn"
-                onClick={() => navigate("/login", { replace: true })}
+                onClick={() => navigate("/singup", { replace: true })}
               >
                 Login
               </button>
