@@ -1,50 +1,97 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { API_URL } from "../config";
 import "./Login.css";
-import { API_URL } from "../config";  // go up ONE level to src/
 
 const Signup = () => {
+  const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [enrollmentnum, setEnrollmentnum] = useState("");
+  const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
+  const sendOtp = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/auth/signup`, {
+      const res = await fetch(`${API_URL}/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        alert("OTP sent to your email");
+        setStep(2);
+      }
+    } catch {
+      setError("OTP send failed");
+    }
+  };
+
+  const verifySignup = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/auth/verify-signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          enrollmentnum,
+          otp,
+        }),
       });
 
       const data = await res.json();
 
-      if (res.status === 201) {
-        alert("Signup successful! Please login.");
+      if (res.ok) {
+        alert("Signup successful");
         navigate("/login");
       } else {
         setError(data.message);
       }
-    } catch (err) {
-      setError("Signup failed. Please try again later.");
+    } catch {
+      setError("Signup failed");
     }
   };
 
   return (
     <div className="auth-container">
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
-        <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+      <div className="auth-form">
+        <h2>Signup</h2>
+
+        {step === 1 && (
+          <>
+            <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
+            <input
+              placeholder="Enrollment No"
+              onChange={(e) => setEnrollmentnum(e.target.value)}
+            />
+            <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={sendOtp}>Send OTP</button>
+          </>
+        )}
+
+        {step === 2 && (
+          <>
+            <input placeholder="Enter OTP" onChange={(e) => setOtp(e.target.value)} />
+            <button onClick={verifySignup}>Verify & Signup</button>
+          </>
+        )}
+
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Sign Up</button>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
-      </form>
+        <p>
+          Already user? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
 };

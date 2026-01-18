@@ -1,23 +1,23 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 import "./Login.css";
-import { API_URL } from "../config";  // go up ONE level to src/
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = localStorage.getItem("users");
-    if (userData) setUser(JSON.parse(userData));
+    const u = localStorage.getItem("user");
+    if (u) setUser(JSON.parse(u));
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
@@ -28,17 +28,14 @@ const Login = () => {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("email", data.email);
         localStorage.setItem("user", JSON.stringify(data));
         setUser(data);
-        alert("Login successful");
         navigate("/");
       } else {
         setError(data.message);
       }
     } catch {
-      setError("Login failed. Please try again later.");
+      setError("Login failed");
     }
   };
 
@@ -46,11 +43,11 @@ const Login = () => {
     return (
       <div className="auth-container">
         <div className="user-info-card">
-          <img src={`${API_URL}${user.Imgsrc}`} alt={user.name} />
-
+          <img src={`${API_URL}${user.Imgsrc}`} alt="" width="120" />
           <h2>{user.name}</h2>
-          <p>Enrollment: {user.enrollmentnum || "N/A"}</p>
+          <p>Enrollment: {user.enrollmentnum}</p>
           <p>Email: {user.email}</p>
+
           <button
             onClick={() => {
               localStorage.clear();
@@ -67,13 +64,19 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <form className="auth-form" onSubmit={handleSubmit}>
+      <form className="auth-form" onSubmit={handleLogin}>
         <h2>Login</h2>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Login</button>
-        <p>New user? <Link to="/signup">Signup</Link></p>
+        <button>Login</button>
+        <p>
+          New user? <Link to="/signup">Signup</Link>
+        </p>
       </form>
     </div>
   );
