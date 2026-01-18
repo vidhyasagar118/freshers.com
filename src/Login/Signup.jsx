@@ -13,23 +13,27 @@ const Signup = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+const sendOtp = async () => {
+  try {
+    const res = await fetch(`${API_URL}/api/auth/send-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
 
-  const sendOtp = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/auth/send-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+    const data = await res.json();
 
-      if (res.ok) {
-        alert("OTP sent to your email");
-        setStep(2);
-      }
-    } catch {
-      setError("OTP send failed");
+    if (res.ok) {
+      alert("OTP sent to your email");
+      setStep(2);
+    } else {
+      setError(data.message || "OTP send failed");
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setError("Server not reachable");
+  }
+};
 
   const verifySignup = async () => {
     try {
