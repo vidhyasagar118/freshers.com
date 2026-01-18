@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
+    const userData = localStorage.getItem("users");
     if (userData) setUser(JSON.parse(userData));
   }, []);
 
@@ -55,7 +55,7 @@ const Login = () => {
             onClick={() => {
               localStorage.clear();
               setUser(null);
-              navigate("/login");
+              navigate("/signup");
             }}
           >
             Logout
