@@ -1,101 +1,51 @@
+
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { API_URL } from "../config";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { API_URL } from "../config";  // go up ONE level to src/
 
 const Signup = () => {
-  const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [enrollmentnum, setEnrollmentnum] = useState("");
-  const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
-const sendOtp = async () => {
-  try {
-    const res = await fetch(`${API_URL}/api/auth/send-otp`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
 
-    const data = await res.json();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-    if (res.ok) {
-      alert("OTP sent to your email");
-      setStep(2);
-    } else {
-      setError(data.message || "OTP send failed");
-    }
-  } catch (err) {
-    console.error(err);
-    setError("Server not reachable");
-  }
-};
-
-  const verifySignup = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/auth/verify-signup`, {
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          enrollmentnum,
-          otp,
-        }),
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await res.json();
 
-      if (res.ok) {
-        alert("Signup successful");
+      if (res.status === 201) {
+        alert("Signup successful! Please login.");
         navigate("/login");
       } else {
         setError(data.message);
       }
-    } catch {
-      setError("Signup failed");
+    } catch (err) {
+      setError("Signup failed. Please try again later.");
     }
   };
 
   return (
     <div className="auth-container">
-      <div className="auth-form">
-        <h2>Signup</h2>
-
-        {step === 1 && (
-          <>
-            <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
-            <input
-              placeholder="Enrollment No"
-              onChange={(e) => setEnrollmentnum(e.target.value)}
-            />
-            <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={sendOtp}>Send OTP</button>
-          </>
-        )}
-
-        {step === 2 && (
-          <>
-            <input placeholder="Enter OTP" onChange={(e) => setOtp(e.target.value)} />
-            <button onClick={verifySignup}>Verify & Signup</button>
-          </>
-        )}
-
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
+        <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <p>
-          Already user? <Link to="/login">Login</Link>
-        </p>
-      </div>
+        <button type="submit">Sign Up</button>
+        <p>Already have an account? <Link to="/login">Login</Link></p>
+      </form>
     </div>
   );
 };
